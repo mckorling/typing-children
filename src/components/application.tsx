@@ -1,20 +1,29 @@
 /**
  * Things you could try:
  *
- * JSX.Element;
- * JSX.Element | JSX.Element[];
- * React.ReactNode;
+ * JSX.Element; // doesn't work if there is more than one child
+ * JSX.Element | JSX.Element[]; // wouldn't work for string
+ * React.ReactNode; // WORKS:
  * React.ReactChildren;
  * React.ReactChild[];
  */
 
-type BoxProps = { children: any /* 👈 Get rid of this! */ };
+import { PropsWithChildren } from 'react';
+type BoxProps = PropsWithChildren<{
+  /*normal props go here*/
+  style: React.CSSProperties;
+}>;
 
-const Box = ({ children }: BoxProps) => {
+// type BoxProps = { children: React.ReactNode }; // React.ReactNode replaces any in first part of exercise
+
+const Box = ({ children, style }: BoxProps) => {
   return (
     <section
       className="m-4"
-      style={{ padding: '1em', border: '5px solid purple' }}
+      style={{
+        padding: '1em',
+        border: '5px solid purple',
+      }} /*this would change to style*/
     >
       {children}
     </section>
